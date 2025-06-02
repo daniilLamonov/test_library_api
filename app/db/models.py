@@ -25,3 +25,9 @@ class Books(Base):
         if count < 1:
             raise ValueError('Book count must be greater than zero.')
         return count
+
+class Reader(Base):
+    __tablename__ = 'readers'
+    uuid: Mapped[UUID] = mapped_column(primary_key=True, default=lambda: str(uuid.uuid4()))
+    name: Mapped[str]
+    email: Mapped[str] = mapped_column(unique=True)

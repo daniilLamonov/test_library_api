@@ -1,5 +1,7 @@
 
 from sqlalchemy import select, delete, update
+from sqlalchemy.exc import IntegrityError
+from fastapi import HTTPException
 
 from app.db.database import async_session
 
@@ -25,9 +27,12 @@ class BaseRepo:
     async def create(cls, data: dict):
         async with async_session() as session:
             obj = cls.model(**data)
-            session.add(obj)
-            await session.commit()
-            return obj
+            try:
+                session.add(obj)
+                await session.commit()
+                return obj
+            except IntegrityError as e:
+                raise e
 
     @classmethod
     async def update(cls, obj_id: str, data: dict):
@@ -38,9 +43,12 @@ class BaseRepo:
                 .values(**data)
                 .returning(cls.model)
             )
-            result = await session.execute(query)
-            await session.commit()
-            return result.scalar_one_or_none()
+            try:
+                result = await session.execute(query)
+                await session.commit()
+                return result.scalar_one_or_none()
+            except IntegrityError as e:
+                raise e
 
     @classmethod
     async def delete(cls, **obj):
