@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from app.api.schemas.readers import ReaderSchema, ReaderUpdateSchema
+from app.db.database import async_session
 from app.repo.readers import ReaderRepo
 
 router = APIRouter(prefix="/readers", tags=["readers"])
@@ -29,4 +30,12 @@ async def reader_update(reader_uuid: str, data: ReaderUpdateSchema):
     if reader_in_db:
         update_data = {k: v for k, v in data if v is not None}
         return await ReaderRepo.update(reader_uuid, update_data)
+    raise HTTPException(status_code=404, detail="Reader not found")
+
+@router.get("/books/{reader_uuid}", description="Get a list of books of reader by id")
+async def reader_books(reader_uuid: str):
+    reader = await ReaderRepo.get_one_or_none(uuid=reader_uuid)
+    if reader:
+        books = reader.borrowed_books
+        return books
     raise HTTPException(status_code=404, detail="Reader not found")

@@ -1,6 +1,8 @@
 import uuid
+from datetime import datetime
 
-from sqlalchemy.orm import mapped_column, Mapped, validates
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import mapped_column, Mapped, validates, relationship
 from uuid import UUID
 
 from .database import Base
@@ -26,8 +28,34 @@ class Books(Base):
             raise ValueError('Book count must be greater than zero.')
         return count
 
-class Reader(Base):
+    borrowed_by: Mapped[list["Readers"]] = relationship(
+        back_populates="borrowed_books",
+        secondary="borrowed_books",
+    )
+
+class Readers(Base):
     __tablename__ = 'readers'
     uuid: Mapped[UUID] = mapped_column(primary_key=True, default=lambda: str(uuid.uuid4()))
     name: Mapped[str]
     email: Mapped[str] = mapped_column(unique=True)
+
+    borrowed_books: Mapped[list["Books"]] = relationship(
+        back_populates="borrowed_by",
+        secondary="borrowed_books",
+    )
+
+
+class Borrows(Base):
+    __tablename__ = 'borrowed_books'
+    reader_uuid: Mapped[UUID] = mapped_column(
+        ForeignKey('readers.uuid', ondelete="CASCADE"),
+        primary_key=True)
+    book_uuid: Mapped[UUID] = mapped_column(
+        ForeignKey('books.uuid', ondelete="CASCADE" ),
+        primary_key=True )
+
+    date: Mapped[datetime]
+    #
+    # reader = relationship("Readers", back_populates="books")
+    # book = relationship("Books", back_populates="readers")
+
