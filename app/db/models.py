@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy.orm import mapped_column, Mapped, validates
 from uuid import UUID
 
@@ -5,14 +7,14 @@ from .database import Base
 
 class Users(Base):
     __tablename__ = 'users'
-    uuid: Mapped[UUID] = mapped_column(primary_key=True)
+    uuid: Mapped[UUID] = mapped_column(primary_key=True, default=lambda: str(uuid.uuid4()))
     username: Mapped[str]
     email: Mapped[str] = mapped_column(unique=True)
     hashed_password: Mapped[str]
 
 class Books(Base):
     __tablename__ = 'books'
-    uuid: Mapped[UUID] = mapped_column(primary_key=True)
+    uuid: Mapped[UUID] = mapped_column(primary_key=True, default=lambda: str(uuid.uuid4()))
     title: Mapped[str]
     author: Mapped[str]
     year_of_publish: Mapped[str] = mapped_column(nullable=True)
