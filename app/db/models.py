@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped, validates, relationship
@@ -47,15 +47,14 @@ class Readers(Base):
 
 class Borrows(Base):
     __tablename__ = 'borrowed_books'
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=lambda: str(uuid.uuid4()))
     reader_uuid: Mapped[UUID] = mapped_column(
-        ForeignKey('readers.uuid', ondelete="CASCADE"),
-        primary_key=True)
+        ForeignKey('readers.uuid', ondelete="CASCADE"))
     book_uuid: Mapped[UUID] = mapped_column(
-        ForeignKey('books.uuid', ondelete="CASCADE" ),
-        primary_key=True )
+        ForeignKey('books.uuid', ondelete="CASCADE" ))
+    quantity: Mapped[int] = mapped_column(default=1)
 
-    date: Mapped[datetime]
-    #
-    # reader = relationship("Readers", back_populates="books")
-    # book = relationship("Books", back_populates="readers")
+
+    borrow_date: Mapped[datetime]
+    return_date: Mapped[datetime] = mapped_column(nullable=True)
 
