@@ -26,6 +26,18 @@ alembic upgrade head
 ```console
 uvicorn app.main:app --reload
 ```
+
+## Docker
+**Если бд установлена локально измени host в .env на "host.docker.internal"** <br>
+
+Есть возможность запуска приложения через докер. Пример команды сборки контейнера:
+```console
+docker build -t lib .
+```
+И запуска:
+```console
+docker run --rm -d -p 8000:8000 --name lib_back lib:latest
+```
 ## Структура проекта
 
 * app/ — основное приложение, включая модели, схемы, сервисы и маршруты.

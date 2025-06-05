@@ -12,7 +12,7 @@ router = APIRouter(prefix="/books", tags=["books"])
 @router.get("/all", response_model=List[BookSchema])
 async def get_books():
     books = await BookRepo.get_all()
-    return {"books": books}
+    return books
 
 @router.get("/{book_id}")
 async def get_book(book_id: str):
