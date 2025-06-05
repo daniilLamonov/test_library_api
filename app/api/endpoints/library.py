@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException
 
+from app.api.deps import CurrentUser
 from app.repo.books import BookRepo
 from app.repo.library import LibraryRepo
 from app.repo.readers import ReaderRepo
@@ -10,7 +11,7 @@ router = APIRouter(prefix="/library", tags=["library"])
 
 
 @router.post("/give_book")
-async def give_book(book_id: str, reader_id: str, quantity: int):
+async def give_book(book_id: str, reader_id: str, quantity: int, cu: CurrentUser):
     book = await BookRepo.get_one_or_none(uuid=book_id)
     if book is None:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -41,7 +42,7 @@ async def give_book(book_id: str, reader_id: str, quantity: int):
 
 
 @router.post("/return_book")
-async def return_book(book_id: str, reader_id: str):
+async def return_book(book_id: str, reader_id: str, cu: CurrentUser):
     book = await BookRepo.get_one_or_none(uuid=book_id)
     if book is None:
         raise HTTPException(status_code=404, detail="Book not found")

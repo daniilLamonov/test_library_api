@@ -1,14 +1,15 @@
+from typing import List
+
 from fastapi import APIRouter, HTTPException
-from sqlalchemy.exc import IntegrityError
 
 from app.api.deps import CurrentUser
-from app.api.schemas.books import BookAddSchema, BookUpdateSchema
+from app.api.schemas.books import BookSchema, BookUpdateSchema
 from app.repo.books import BookRepo
 
 router = APIRouter(prefix="/books", tags=["books"])
 
 
-@router.get("/all")
+@router.get("/all", response_model=List[BookSchema])
 async def get_books():
     books = await BookRepo.get_all()
     return {"books": books}
@@ -19,7 +20,7 @@ async def get_book(book_id: str):
     return {"book": book}
 
 @router.post("/create")
-async def create_book(book_data: BookAddSchema, cu: CurrentUser):
+async def create_book(book_data: BookSchema, cu: CurrentUser):
     try:
         book = await BookRepo.create(book_data.model_dump())
     except Exception as e:

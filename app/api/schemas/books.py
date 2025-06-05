@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 
-class BookAddSchema(BaseModel):
+class BookSchema(BaseModel):
     title: str
     author: str
     year_of_publish: Optional[str] = Field(default=None)
