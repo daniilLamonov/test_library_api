@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, field_validator
 
 
 class UserRegisterSchema(BaseModel):
@@ -6,7 +6,7 @@ class UserRegisterSchema(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
     confirm_password: str = Field(min_length=8, max_length=128)
-    @validator('confirm_password')
+    @field_validator('confirm_password')
     def password_match(cls, v, values):
         if "password" in values and v != values["password"]:
             raise ValueError("Passwords do not match")

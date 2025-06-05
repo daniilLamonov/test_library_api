@@ -1,0 +1,18 @@
+[
+  {
+    "reader_uuid": "91e8d190-7ee6-483c-8ed4-1153a7c348c4",
+    "id": "70e5a61f-599f-4a91-87c8-d8e775943cc8",
+    "borrow_date": "2025-06-05T15:41:14.859587",
+    "quantity": 2,
+    "book_uuid": "5d70aaf8-d2bc-470e-90db-e7ddcd1ba2cb",
+    "return_date": null
+  },
+  {
+    "reader_uuid": "91e8d190-7ee6-483c-8ed4-1153a7c348c4",
+    "id": "a876da18-08ab-4595-baa5-0d2a4e67156f",
+    "borrow_date": "2025-06-05T15:41:32.700250",
+    "quantity": 1,
+    "book_uuid": "273b6062-f1aa-4779-a8c1-c7decc305f0f",
+    "return_date": null
+  }
+]

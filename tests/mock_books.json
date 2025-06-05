@@ -1,0 +1,26 @@
+[
+    {
+      "year_of_publish": "2024",
+      "count": 4,
+      "title": "Sample Book",
+      "uuid": "3df2732f-793d-4fdb-a0d3-863d6c98880a",
+      "author": "John Doe",
+      "isbn": "123-4567890123"
+    },
+    {
+      "year_of_publish": "1954",
+      "count": 3,
+      "title": "Властелин колец",
+      "uuid": "5d70aaf8-d2bc-470e-90db-e7ddcd1ba2cb",
+      "author": "Дж. Р. Р. Толкин",
+      "isbn": "978-5-17-083279-1"
+    },
+    {
+      "year_of_publish": "1866",
+      "count": 1,
+      "title": "Преступление и наказание",
+      "uuid": "273b6062-f1aa-4779-a8c1-c7decc305f0f",
+      "author": "Фёдор Достоевский",
+      "isbn": "978-5-389-07408-4"
+    }
+]

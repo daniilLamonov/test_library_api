@@ -1,0 +1,14 @@
+[
+    {
+        "uuid": "af37ad05-3965-4a0f-a7fc-93b0504500ea",
+        "username": "string",
+        "email": "test@test.com",
+        "hashed_password": "$2b$12$ib8N/MddMjSxNs4UOF69c.KuO4CyglQHcNATYpHcKJJn5rbltYNFG"
+    },
+    {
+        "uuid": "af37ad95-3965-4a0f-a7fc-93b0504500ea",
+        "username": "string",
+        "email": "user@example.com",
+        "hashed_password": "$2b$12$xk4c/QmKrchvTQJ7Z1cCXeRudhAF3FiutfhLFd1Kvb2REJHDZe3ru"
+    }
+]
